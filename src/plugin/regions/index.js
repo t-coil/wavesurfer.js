@@ -340,9 +340,11 @@ export default class RegionsPlugin {
             const endUpdate = this.wavesurfer.regions.util.getRegionSnapToGridValue(
                 end * duration
             );
+            const newEnd = Math.max(endUpdate, startUpdate);
+
             region.update({
                 start: Math.min(endUpdate, startUpdate),
-                end: Math.max(endUpdate, startUpdate)
+                end: Math.min(newEnd, startUpdate + params.maxLength)
             });
 
             // If scrolling is enabled

@@ -727,9 +727,11 @@ export class Region {
                 delta = this.start * -1;
             }
 
+            const newEnd = Math.max(this.start + delta, this.end);
+
             this.update({
                 start: Math.min(this.start + delta, this.end),
-                end: Math.max(this.start + delta, this.end)
+                end: Math.min(newEnd, this.maxLength + this.start)
             });
         } else {
             // Check if changing the end by the given delta would result in the region being smaller than minLength
@@ -742,9 +744,11 @@ export class Region {
                 delta = duration - this.end;
             }
 
+            const newEnd = Math.max(this.end + delta, this.start);
+
             this.update({
                 start: Math.min(this.end + delta, this.start),
-                end: Math.max(this.end + delta, this.start)
+                end: Math.min(newEnd, this.maxLength + this.start)
             });
         }
     }
